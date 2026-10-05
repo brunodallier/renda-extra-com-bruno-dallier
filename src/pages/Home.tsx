@@ -49,6 +49,25 @@ export function Home() {
             </div>
             <IntroVideo video={introVideo} onUnavailable={() => setNotice('O vídeo de apresentação será conectado aqui quando estiver disponível.')} />
           </div>
+
+          <div className="hero-indicators" aria-label="Indicadores de oportunidades">
+            <div className="hero-indicator">
+              <strong>R$ 10–30/h</strong>
+              <span>tarefas residenciais</span>
+            </div>
+            <div className="hero-indicator">
+              <strong>R$ 30–70/h</strong>
+              <span>tarefas comerciais</span>
+            </div>
+            <div className="hero-indicator">
+              <strong>PIX</strong>
+              <span>saque em reais</span>
+            </div>
+            <div className="hero-indicator">
+              <strong>COMECE DO ZERO</strong>
+              <span>não exige experiência prévia</span>
+            </div>
+          </div>
         </div>
       </section>
 

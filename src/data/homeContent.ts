@@ -1,12 +1,12 @@
 import type { JourneyStep, TaskExample } from '../types/content'
 
 export const journeySteps: JourneyStep[] = [
-  { number: '01', title: 'O que é', headline: 'Tarefas que ajudam a melhorar IA.', description: 'Empresas precisam de pessoas para gravar, revisar, classificar e validar informações.', note: 'Você escolhe o que faz sentido para você.' },
-  { number: '02', title: 'Como funciona', headline: 'Você segue uma instrução e envia.', description: 'Cada tarefa vem com regras claras. Faça o que foi pedido e envie para avaliação.', note: 'Qualidade importa mais que velocidade.' },
-  { number: '03', title: 'Escolha uma plataforma', headline: 'Compare antes de criar a conta.', description: 'Veja como paga, o que pede e quais tarefas estão disponíveis.', note: 'Comece pela que combina com sua rotina.' },
-  { number: '04', title: 'Faça as tarefas', headline: 'Celular, atenção e um bom briefing.', description: 'Pode ser vídeo, foto, voz, revisão ou validação de informações.', note: 'Leia tudo antes de enviar.' },
-  { number: '05', title: 'Receba', headline: 'A tarefa aprovada vira saldo.', description: 'O formato de pagamento depende de cada plataforma e da tarefa.', note: 'Valores e prazos sempre precisam ser confirmados.' },
-  { number: '06', title: 'Saque', headline: 'Confira a regra e peça seu pagamento.', description: 'Veja mínimo, método e prazo antes de solicitar o saque.', note: 'Tudo isso aparece na página de cada oportunidade.' },
+  { number: '01', title: 'O que é', headline: 'Você ajuda a treinar IA com tarefas reais.', description: 'A Hub paga pessoas para gravar atividades do dia a dia que ajudam no treinamento de sistemas de inteligência artificial.', note: 'Você registra tarefas reais acontecendo de verdade.' },
+  { number: '02', title: 'Como funciona', headline: 'Você escolhe uma tarefa e segue as instruções.', description: 'Na Hub, você escolhe uma tarefa disponível, vê o que precisa ser feito, grava com o celular e envia pela plataforma.', note: 'Escolha, siga as instruções, grave e envie.' },
+  { number: '03', title: 'Tipos de tarefa', headline: 'Tarefas em casa e no seu trabalho.', description: 'Existem tarefas para fazer em casa e outras que podem ser realizadas no seu trabalho.', note: 'Escolha as tarefas que combinam com a sua rotina.' },
+  { number: '04', title: 'Grave a tarefa', headline: 'Filme suas mãos fazendo a tarefa.', description: 'Use o celular preso em um suporte de cabeça para gravar a atividade sendo realizada de verdade e siga as instruções da tarefa.', note: 'O foco é mostrar a execução da tarefa.' },
+  { number: '05', title: 'Aguarde a aprovação', headline: 'Envie e aguarde a análise.', description: 'Depois do envio, a gravação é analisada para confirmar se a tarefa foi realizada corretamente.', note: 'A aprovação acontece antes do pagamento.' },
+  { number: '06', title: 'Receba via Pix', headline: 'Receba em reais via Pix.', description: 'Depois que a tarefa é aprovada, o pagamento é feito via Pix dentro do prazo informado pela Hub.', note: 'Pagamento após aprovação.' },
 ]
 
 export const taskExamples: TaskExample[] = [
