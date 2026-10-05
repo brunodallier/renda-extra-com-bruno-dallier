@@ -1,24 +1,21 @@
-import { ArrowDown, ArrowRight, ShieldCheck } from 'lucide-react'
+import { ArrowDown, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { FAQList } from '../components/FAQList'
-import { FilterBar } from '../components/FilterBar'
+import { HubOrientation } from '../components/HubOrientation'
 import { IntroVideo } from '../components/IntroVideo'
 import { JourneyExplorer } from '../components/JourneyExplorer'
-import { PlatformCard } from '../components/PlatformCard'
 import { SectionHeading } from '../components/SectionHeading'
 import { TaskCarousel } from '../components/TaskCarousel'
 import { TutorialCard } from '../components/TutorialCard'
 import { generalFaq } from '../data/faq'
 import { journeySteps, taskExamples } from '../data/homeContent'
 import { introVideo } from '../data/introVideo'
-import { platforms } from '../data/platforms'
 import { tutorialCategories, tutorials } from '../data/tutorials'
-import type { FilterKey, Tutorial } from '../types/content'
+import type { Tutorial } from '../types/content'
 
 export function Home() {
   const location = useLocation()
-  const [activeFilter, setActiveFilter] = useState<FilterKey>('all')
   const [activeCategory, setActiveCategory] = useState('Todos')
   const [notice, setNotice] = useState('')
 
@@ -28,9 +25,6 @@ export function Home() {
     window.requestAnimationFrame(() => target?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }, [location.hash])
 
-  const visiblePlatforms = activeFilter === 'all'
-    ? platforms
-    : platforms.filter((platform) => platform.filters.includes(activeFilter))
   const visibleTutorials = activeCategory === 'Todos'
     ? tutorials
     : tutorials.filter((tutorial) => tutorial.category === activeCategory)
@@ -65,16 +59,7 @@ export function Home() {
         </div>
       </section>
 
-      <section id="plataformas" className="section platforms-section">
-        <div className="container">
-          <div className="opportunities-heading"><p>03 / Plataformas</p><h2>Veja as<br />plataformas.</h2><span><ShieldCheck size={16} />Valores demonstrativos</span></div>
-          <FilterBar activeFilter={activeFilter} onChange={setActiveFilter} />
-          <p className="results-count">{visiblePlatforms.length} {visiblePlatforms.length === 1 ? 'plataforma encontrada' : 'plataformas encontradas'}</p>
-          <div className="platform-grid">
-            {visiblePlatforms.map((platform) => <PlatformCard key={platform.slug} platform={platform} />)}
-          </div>
-        </div>
-      </section>
+      <HubOrientation onLinkUnavailable={(label) => setNotice(`${label}: link será adicionado aqui quando estiver disponível.`)} />
 
       <section id="tarefas" className="section tasks-section">
         <div className="container">
