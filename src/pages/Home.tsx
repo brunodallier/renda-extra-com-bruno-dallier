@@ -1,25 +1,25 @@
-import { ArrowDown, ArrowRight, ShieldCheck } from 'lucide-react'
+import { ArrowDown, ArrowRight } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import faqHeadmountMechanic from '../assets/faq-headmount-mechanic.png'
 import { FAQList } from '../components/FAQList'
-import { FilterBar } from '../components/FilterBar'
+import { HubOrientation } from '../components/HubOrientation'
 import { IntroVideo } from '../components/IntroVideo'
 import { JourneyExplorer } from '../components/JourneyExplorer'
-import { PlatformCard } from '../components/PlatformCard'
 import { SectionHeading } from '../components/SectionHeading'
 import { TaskCarousel } from '../components/TaskCarousel'
 import { TutorialCard } from '../components/TutorialCard'
 import { generalFaq } from '../data/faq'
-import { journeySteps, taskExamples } from '../data/homeContent'
+import { journeySteps } from '../data/homeContent'
 import { introVideo } from '../data/introVideo'
-import { platforms } from '../data/platforms'
-import { tutorialCategories, tutorials } from '../data/tutorials'
-import type { FilterKey, Tutorial } from '../types/content'
+import { homepageTutorials } from '../data/tutorials'
+import { motionTokens, revealItem, revealSection, staggerReveal } from '../lib/motion'
+
+const sectionViewport = { once: true, amount: 0.14 }
 
 export function Home() {
   const location = useLocation()
-  const [activeFilter, setActiveFilter] = useState<FilterKey>('all')
-  const [activeCategory, setActiveCategory] = useState('Todos')
   const [notice, setNotice] = useState('')
 
   useEffect(() => {
@@ -28,83 +28,70 @@ export function Home() {
     window.requestAnimationFrame(() => target?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }, [location.hash])
 
-  const visiblePlatforms = activeFilter === 'all'
-    ? platforms
-    : platforms.filter((platform) => platform.filters.includes(activeFilter))
-  const visibleTutorials = activeCategory === 'Todos'
-    ? tutorials
-    : tutorials.filter((tutorial) => tutorial.category === activeCategory)
-
-  const watchTutorial = (tutorial: Tutorial) => {
-    setNotice(`“${tutorial.title}” está preparado para receber o link do vídeo.`)
-  }
-
   return (
     <main className="opportunities-home">
       <section className="campaign-hero campaign-hero--video" aria-labelledby="hero-title">
         <div className="container campaign-hero__inner">
           <div className="campaign-hero__grid">
-            <div className="campaign-hero__copy reveal">
-              <p>01 / Treinamento + oportunidades</p>
-              <h1 id="hero-title"><span>Faça uma</span><span>renda extra</span><span>com</span><em>treinamento<br />de IA.</em></h1>
-              <span>Aprenda a encontrar oportunidades, fazer tarefas e buscar uma renda extra com IA.</span>
-              <div className="campaign-hero__actions">
+            <motion.div className="campaign-hero__copy reveal" variants={staggerReveal} initial="hidden" animate="visible">
+              <motion.p variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}>01 / Treinamento + oportunidades</motion.p>
+              <motion.h1 id="hero-title" variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}><span>Faça uma</span><span>renda extra</span><span>com</span><em>treinamento<br />de IA.</em></motion.h1>
+              <motion.span variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}>Aprenda a encontrar oportunidades, fazer tarefas e buscar uma renda extra com IA.</motion.span>
+              <motion.div className="campaign-hero__actions" variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}>
                 <a className="button button--signal" href="#plataformas">Ver oportunidades <ArrowRight size={18} /></a>
                 <a className="text-link" href="#como-funciona">Como funciona <ArrowDown size={16} /></a>
-              </div>
-            </div>
-            <IntroVideo video={introVideo} onUnavailable={() => setNotice('O vídeo de apresentação será conectado aqui quando estiver disponível.')} />
+              </motion.div>
+            </motion.div>
+            <motion.div variants={revealSection} initial="hidden" animate="visible"><IntroVideo video={introVideo} onUnavailable={() => setNotice('O vídeo de apresentação será conectado aqui quando estiver disponível.')} /></motion.div>
           </div>
+
+          <motion.div className="hero-indicators" variants={staggerReveal} initial="hidden" animate="visible">
+            <motion.div className="hero-indicator" variants={revealItem}><strong>R$ 10–30/h</strong><span>tarefas residenciais</span></motion.div>
+            <motion.div className="hero-indicator" variants={revealItem}><strong>R$ 30–70/h</strong><span>tarefas comerciais</span></motion.div>
+            <motion.div className="hero-indicator" variants={revealItem}><strong>PIX</strong><span>saque em reais</span></motion.div>
+            <motion.div className="hero-indicator" variants={revealItem}><strong>COMECE DO ZERO</strong><span>não exige experiência prévia</span></motion.div>
+          </motion.div>
         </div>
       </section>
 
-      <section id="como-funciona" className="section journey-section">
+      <motion.section id="como-funciona" className="section journey-section" variants={revealSection} initial="hidden" whileInView="visible" viewport={sectionViewport}>
         <div className="container">
           <SectionHeading index="02" eyebrow="Como funciona" title="Entenda antes de começar." copy="Clique em uma etapa." />
           <JourneyExplorer steps={journeySteps} />
         </div>
-      </section>
+      </motion.section>
 
-      <section id="plataformas" className="section platforms-section">
-        <div className="container">
-          <div className="opportunities-heading"><p>03 / Plataformas</p><h2>Veja as<br />plataformas.</h2><span><ShieldCheck size={16} />Valores demonstrativos</span></div>
-          <FilterBar activeFilter={activeFilter} onChange={setActiveFilter} />
-          <p className="results-count">{visiblePlatforms.length} {visiblePlatforms.length === 1 ? 'plataforma encontrada' : 'plataformas encontradas'}</p>
-          <div className="platform-grid">
-            {visiblePlatforms.map((platform) => <PlatformCard key={platform.slug} platform={platform} />)}
-          </div>
-        </div>
-      </section>
+      <HubOrientation onLinkUnavailable={(label) => setNotice(`${label}: link será adicionado aqui quando estiver disponível.`)} />
 
       <section id="tarefas" className="section tasks-section">
         <div className="container">
-          <div className="tasks-heading"><p>04 / Exemplos de tarefas</p><h2>Que tipo de<br />tarefa você<br />pode fazer?</h2><span>Use o seu tempo.</span></div>
-          <TaskCarousel tasks={taskExamples} />
+          <div className="tasks-heading"><p>05 / Tarefas</p><h2>Que tipo de tarefa<br />você pode fazer?</h2><span>Veja exemplos de tarefas disponíveis na Hub.</span></div>
+          <TaskCarousel />
         </div>
       </section>
 
-      <section id="duvidas" className="section faq-section">
+      <motion.section id="duvidas" className="section faq-section" variants={revealSection} initial="hidden" whileInView="visible" viewport={sectionViewport}>
         <div className="container faq-layout">
-          <SectionHeading index="05" eyebrow="Perguntas rápidas" title="Antes de começar." copy="O essencial, sem enrolação." />
+          <div className="faq-lead">
+            <SectionHeading index="06" eyebrow="Perguntas frequentes" title="Tire suas dúvidas." copy="O essencial para começar com clareza." />
+            <img className="faq-lead__image" src={faqHeadmountMechanic} alt="Homem usando suporte de cabeça enquanto limpa uma chave inglesa" />
+          </div>
           <FAQList items={generalFaq} idPrefix="faq-geral" />
         </div>
-      </section>
+      </motion.section>
 
-      <section id="tutoriais" className="section tutorials-section">
+      <motion.section id="tutoriais" className="section tutorials-section" variants={revealSection} initial="hidden" whileInView="visible" viewport={sectionViewport}>
         <div className="container">
-          <div className="tutorials-heading"><p>06 / Tutoriais</p><h2>Aprenda<br />fazendo.</h2><span>Veja como funciona.</span></div>
-          <div className="category-tabs" role="tablist" aria-label="Categorias de vídeos">
-            {['Todos', ...tutorialCategories].map((category) => (
-              <button key={category} type="button" role="tab" aria-selected={activeCategory === category} className={activeCategory === category ? 'is-active' : ''} onClick={() => setActiveCategory(category)}>{category}</button>
-            ))}
-          </div>
-          <div className="tutorial-grid">
-            {visibleTutorials.map((tutorial) => <TutorialCard key={tutorial.id} tutorial={tutorial} onWatch={watchTutorial} />)}
-          </div>
+          <div className="tutorials-heading"><p>07 / Tutoriais</p><h2>Aprenda fazendo.</h2><span>Veja os tutoriais e comece do jeito certo.</span></div>
+          <motion.div className="tutorial-grid" variants={staggerReveal} initial="hidden" whileInView="visible" viewport={sectionViewport}>
+            {homepageTutorials.map((tutorial) => <motion.div key={tutorial.id} variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}><TutorialCard tutorial={tutorial} /></motion.div>)}
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {notice ? <div className="toast" role="status"><span>{notice}</span><button type="button" onClick={() => setNotice('')}>Fechar</button></div> : null}
+      <AnimatePresence>
+        {notice ? <motion.div className="toast" role="status" initial={{ opacity: 0, scale: 0.96, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 4 }} transition={{ duration: motionTokens.duration.component, ease: motionTokens.easing.enter }}><span>{notice}</span><button type="button" onClick={() => setNotice('')}>Fechar</button></motion.div> : null}
+      </AnimatePresence>
     </main>
   )
 }

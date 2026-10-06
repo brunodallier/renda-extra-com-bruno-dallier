@@ -11,8 +11,10 @@
   "dependencies": {
     "@vitejs/plugin-react": "latest",
     "lucide-react": "latest",
+    "motion": "^14.0.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-icons": "^5.7.0",
     "react-router-dom": "latest",
     "vite": "latest"
   },
