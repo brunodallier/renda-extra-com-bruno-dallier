@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight } from 'lucide-react'
+import { ArrowDown, ArrowRight, Camera, Music, Video } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { FAQList } from '../components/FAQList'
@@ -9,14 +9,12 @@ import { SectionHeading } from '../components/SectionHeading'
 import { TaskCarousel } from '../components/TaskCarousel'
 import { TutorialCard } from '../components/TutorialCard'
 import { generalFaq } from '../data/faq'
-import { journeySteps, taskExamples } from '../data/homeContent'
+import { journeySteps } from '../data/homeContent'
 import { introVideo } from '../data/introVideo'
-import { tutorialCategories, tutorials } from '../data/tutorials'
-import type { Tutorial } from '../types/content'
+import { homepageTutorials } from '../data/tutorials'
 
 export function Home() {
   const location = useLocation()
-  const [activeCategory, setActiveCategory] = useState('Todos')
   const [notice, setNotice] = useState('')
 
   useEffect(() => {
@@ -24,14 +22,6 @@ export function Home() {
     const target = document.querySelector(location.hash)
     window.requestAnimationFrame(() => target?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }, [location.hash])
-
-  const visibleTutorials = activeCategory === 'Todos'
-    ? tutorials
-    : tutorials.filter((tutorial) => tutorial.category === activeCategory)
-
-  const watchTutorial = (tutorial: Tutorial) => {
-    setNotice(`“${tutorial.title}” está preparado para receber o link do vídeo.`)
-  }
 
   return (
     <main className="opportunities-home">
@@ -82,29 +72,36 @@ export function Home() {
 
       <section id="tarefas" className="section tasks-section">
         <div className="container">
-          <div className="tasks-heading"><p>04 / Exemplos de tarefas</p><h2>Que tipo de<br />tarefa você<br />pode fazer?</h2><span>Use o seu tempo.</span></div>
-          <TaskCarousel tasks={taskExamples} />
+          <div className="tasks-heading"><p>05 / Tarefas</p><h2>Que tipo de tarefa<br />você pode fazer?</h2><span>Veja exemplos de tarefas disponíveis na Hub.</span></div>
+          <TaskCarousel />
         </div>
       </section>
 
       <section id="duvidas" className="section faq-section">
         <div className="container faq-layout">
-          <SectionHeading index="05" eyebrow="Perguntas rápidas" title="Antes de começar." copy="O essencial, sem enrolação." />
+          <SectionHeading index="06" eyebrow="Perguntas frequentes" title="Tire suas dúvidas." copy="O essencial para começar com clareza." />
           <FAQList items={generalFaq} idPrefix="faq-geral" />
         </div>
       </section>
 
       <section id="tutoriais" className="section tutorials-section">
         <div className="container">
-          <div className="tutorials-heading"><p>06 / Tutoriais</p><h2>Aprenda<br />fazendo.</h2><span>Veja como funciona.</span></div>
-          <div className="category-tabs" role="tablist" aria-label="Categorias de vídeos">
-            {['Todos', ...tutorialCategories].map((category) => (
-              <button key={category} type="button" role="tab" aria-selected={activeCategory === category} className={activeCategory === category ? 'is-active' : ''} onClick={() => setActiveCategory(category)}>{category}</button>
-            ))}
-          </div>
+          <div className="tutorials-heading"><p>07 / Tutoriais</p><h2>Aprenda fazendo.</h2><span>Veja os tutoriais e comece do jeito certo.</span></div>
           <div className="tutorial-grid">
-            {visibleTutorials.map((tutorial) => <TutorialCard key={tutorial.id} tutorial={tutorial} onWatch={watchTutorial} />)}
+            {homepageTutorials.map((tutorial) => <TutorialCard key={tutorial.id} tutorial={tutorial} />)}
           </div>
+        </div>
+      </section>
+
+      <section className="social-section" aria-labelledby="social-title">
+        <div className="container social-section__inner">
+          <h2 id="social-title">Siga o Bruno.</h2>
+          <nav className="social-section__links" aria-label="Redes sociais">
+            <a href="https://www.instagram.com/brunodallier/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do Bruno Dallier" data-tooltip="Instagram"><Camera size={22} /></a>
+            <a href="https://x.com/Alienigena404" target="_blank" rel="noopener noreferrer" aria-label="X do Bruno Dallier" data-tooltip="X"><span className="social-section__x" aria-hidden="true">X</span></a>
+            <a href="https://www.tiktok.com/@alienigena404" target="_blank" rel="noopener noreferrer" aria-label="TikTok do Bruno Dallier" data-tooltip="TikTok"><Music size={22} /></a>
+            <a href="https://www.youtube.com/@brunodallieroficial" target="_blank" rel="noopener noreferrer" aria-label="YouTube do Bruno Dallier" data-tooltip="YouTube"><Video size={24} /></a>
+          </nav>
         </div>
       </section>
 
