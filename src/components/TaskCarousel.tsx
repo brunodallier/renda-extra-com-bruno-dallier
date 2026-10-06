@@ -26,7 +26,6 @@ function panelPosition(panel: number, category: Category) {
   return {
     backgroundImage: `url(${category === 'residential' ? residentialSheet : commercialSheet})`,
     backgroundPosition: `${((panel % columns) / (columns - 1)) * 100}% ${(Math.floor(panel / columns) / (rows - 1)) * 100}%`,
-    // Keep each source photo at its native aspect ratio while cropping out the sheet gutters.
     backgroundSize: '440% auto',
   }
 }
