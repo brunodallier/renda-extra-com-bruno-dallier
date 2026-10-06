@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Camera, Music, Video } from 'lucide-react'
+import { ArrowDown, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { FAQList } from '../components/FAQList'
@@ -90,18 +90,6 @@ export function Home() {
           <div className="tutorial-grid">
             {homepageTutorials.map((tutorial) => <TutorialCard key={tutorial.id} tutorial={tutorial} />)}
           </div>
-        </div>
-      </section>
-
-      <section className="social-section" aria-labelledby="social-title">
-        <div className="container social-section__inner">
-          <h2 id="social-title">Siga o Bruno.</h2>
-          <nav className="social-section__links" aria-label="Redes sociais">
-            <a href="https://www.instagram.com/brunodallier/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do Bruno Dallier" data-tooltip="Instagram"><Camera size={22} /></a>
-            <a href="https://x.com/Alienigena404" target="_blank" rel="noopener noreferrer" aria-label="X do Bruno Dallier" data-tooltip="X"><span className="social-section__x" aria-hidden="true">X</span></a>
-            <a href="https://www.tiktok.com/@alienigena404" target="_blank" rel="noopener noreferrer" aria-label="TikTok do Bruno Dallier" data-tooltip="TikTok"><Music size={22} /></a>
-            <a href="https://www.youtube.com/@brunodallieroficial" target="_blank" rel="noopener noreferrer" aria-label="YouTube do Bruno Dallier" data-tooltip="YouTube"><Video size={24} /></a>
-          </nav>
         </div>
       </section>
 

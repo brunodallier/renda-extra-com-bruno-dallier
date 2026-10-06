@@ -1,17 +1,35 @@
-import { Compass, ShieldCheck } from 'lucide-react'
+import { Compass, Info } from 'lucide-react'
+import { FaInstagram, FaTiktok, FaXTwitter, FaYoutube } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
+
+const socialLinks = [
+  { label: 'Instagram', href: 'https://www.instagram.com/brunodallier/', Icon: FaInstagram },
+  { label: 'X', href: 'https://x.com/Alienigena404', Icon: FaXTwitter },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@alienigena404', Icon: FaTiktok },
+  { label: 'YouTube', href: 'https://www.youtube.com/@brunodallieroficial', Icon: FaYoutube },
+]
 
 export function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
-        <div>
+        <div className="footer-brand-block">
           <Link className="footer-brand" to="/"><Compass size={18} />Renda Extra <span>com Bruno Dallier</span></Link>
-          <p>Uma central editorial para pesquisar oportunidades com critério, clareza e autonomia.</p>
+          <p className="footer-copy">Guias práticos sobre renda extra em casa usando o celular e treinamento de inteligência artificial. Aprenda a usar a Hub, encontrar tarefas residenciais e comerciais, gravar corretamente e receber pagamentos via Pix.</p>
         </div>
-        <div className="footer-note"><ShieldCheck size={18} /><p>Dados demonstrativos neste protótipo. Antes de se cadastrar em qualquer serviço, confirme condições e pagamentos em canais oficiais.</p></div>
+        <div className="footer-tools">
+          <div className="footer-socials">
+            <p>Siga o Bruno</p>
+            <nav aria-label="Redes sociais do Bruno Dallier">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} data-tooltip={label}><Icon aria-hidden="true" /></a>
+              ))}
+            </nav>
+          </div>
+          <div className="footer-disclaimer"><Info size={17} aria-hidden="true" /><p>Este site tem caráter informativo e pode conter links de indicação. Regras, valores, disponibilidade de tarefas e formas de pagamento são definidos pela Hub e podem mudar. Antes de participar, confirme sempre as condições nos canais oficiais. Não há garantia de ganhos ou de disponibilidade de tarefas.</p></div>
+        </div>
       </div>
-      <div className="container footer-bottom"><span>© 2026 Renda Extra com Bruno Dallier</span><span>Informação antes de decisão</span></div>
+      <div className="container footer-bottom"><span>© 2026 Renda Extra com Bruno Dallier</span></div>
     </footer>
   )
 }
