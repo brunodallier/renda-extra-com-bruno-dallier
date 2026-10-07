@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowRight, Check, CircleAlert, Play, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import hubRegistrationWoman from '../assets/hub-registration-woman.png'
-import { hubCaptureAcceptedDevices, hubCaptureRejectedDevices, hubConfig, minuteCompatibleModels } from '../data/hub'
+import { hubCaptureAcceptedDevices, hubCaptureRejectedDevices, hubConfig, minuteCompatibleModels, minuteInviteCodes } from '../data/hub'
 
 type HubActionProps = {
   href: string | null
@@ -30,6 +30,34 @@ function HubAction({ href, label, variant, icon = 'arrow', onUnavailable }: HubA
 export function HubOrientation({ onLinkUnavailable }: { onLinkUnavailable: (label: string) => void }) {
   const applicationSectionRef = useRef<HTMLElement>(null)
   const [isApplicationRevealed, setIsApplicationRevealed] = useState(false)
+  const [copiedInviteCode, setCopiedInviteCode] = useState<string | null>(null)
+
+  const copyInviteCode = async (code: string) => {
+    const copyWithFallback = () => {
+      const input = document.createElement('textarea')
+      input.value = code
+      input.setAttribute('readonly', '')
+      input.style.position = 'fixed'
+      input.style.opacity = '0'
+      document.body.appendChild(input)
+      input.select()
+      document.execCommand('copy')
+      input.remove()
+    }
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(code)
+      } else {
+        copyWithFallback()
+      }
+    } catch {
+      copyWithFallback()
+    }
+
+    setCopiedInviteCode(code)
+    window.setTimeout(() => setCopiedInviteCode((current) => current === code ? null : current), 1600)
+  }
 
   useEffect(() => {
     const section = applicationSectionRef.current
@@ -106,6 +134,19 @@ export function HubOrientation({ onLinkUnavailable }: { onLinkUnavailable: (labe
                 <h4>Minute</h4>
                 <p className="phone-path__copy">Use o Minute para realizar as tarefas compatíveis com esses aparelhos.</p>
               </div>
+              <div className="phone-path__pre-download phone-path__pre-download--minute">
+                <p className="pre-download-info__label">Antes de baixar</p>
+                <p className="pre-download-info__title">Código de convite do app</p>
+                <div className="invite-code-list">
+                  {minuteInviteCodes.map(({ label, code }) => (
+                    <div className="invite-code-row" key={code}>
+                      <div><span>{label}</span><code>{code}</code></div>
+                      <button type="button" onClick={() => void copyInviteCode(code)} aria-label={`Copiar código ${code}`}>{copiedInviteCode === code ? 'Copiado' : 'Copiar'}</button>
+                    </div>
+                  ))}
+                </div>
+                <p className="pre-download-info__copy">Use o código correspondente ao tipo de tarefa que você pretende realizar.</p>
+              </div>
               <div className="phone-path__actions">
                 <HubAction href={hubConfig.minuteAndroidLink} label="Baixar Minute no Android" variant="minute" onUnavailable={onLinkUnavailable} />
                 <HubAction href={hubConfig.minuteIosLink} label="Baixar Minute no iPhone" variant="minute" onUnavailable={onLinkUnavailable} />
@@ -132,6 +173,12 @@ export function HubOrientation({ onLinkUnavailable }: { onLinkUnavailable: (labe
                 <p className="phone-path__copy">Então seu próximo caminho é o Hub Capture.</p>
                 <p className="phone-path__app-label">Seu aplicativo é:</p>
                 <h4>Hub Capture</h4>
+              </div>
+              <div className="phone-path__pre-download phone-path__pre-download--capture">
+                <p className="pre-download-info__label">Antes de baixar</p>
+                <p className="pre-download-info__title">É obrigatório criar sua conta na Hub primeiro.</p>
+                <p className="pre-download-info__copy">Se você ainda não fez o cadastro, crie sua conta antes de instalar o aplicativo.</p>
+                <a className="pre-download-info__registration-link" href={hubConfig.registrationLink} target="_blank" rel="noopener noreferrer">Criar conta na Hub <ArrowRight size={15} /></a>
               </div>
               <div className="phone-path__actions">
                 <HubAction href={hubConfig.hubCaptureAndroidLink} label="Baixar Hub Capture no Android" variant="capture" onUnavailable={onLinkUnavailable} />

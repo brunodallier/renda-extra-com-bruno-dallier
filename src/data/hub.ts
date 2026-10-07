@@ -43,6 +43,11 @@ export const hubCaptureRejectedDevices = [
   { manufacturer: 'Xiaomi', models: ['Redmi 13'] },
 ] as const
 
+export const minuteInviteCodes = [
+  { label: 'Tarefas residenciais', code: 'VRFBHSPV' },
+  { label: 'Tarefas comerciais', code: 'WM529RMG' },
+] as const
+
 export const hubConfig = {
   registrationLink: 'https://ai.hub.xyz/r/SITEBR',
   registrationTutorialLink: 'https://www.youtube.com/watch?v=SQo0S4lg0LA',
