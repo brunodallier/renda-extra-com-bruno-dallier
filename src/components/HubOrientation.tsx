@@ -1,7 +1,7 @@
-import { ArrowDown, ArrowRight, CircleAlert, Play } from 'lucide-react'
+import { ArrowDown, ArrowRight, Check, CircleAlert, Play, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import hubRegistrationWoman from '../assets/hub-registration-woman.png'
-import { hubConfig } from '../data/hub'
+import { hubCaptureAcceptedDevices, hubCaptureRejectedDevices, hubConfig, minuteCompatibleModels } from '../data/hub'
 
 type HubActionProps = {
   href: string | null
@@ -97,35 +97,73 @@ export function HubOrientation({ onLinkUnavailable }: { onLinkUnavailable: (labe
 
           <div className="phone-path-grid hub-app-section__paths">
             <article className="phone-path phone-path--minute hub-reveal hub-reveal--minute">
-              <p className="phone-path__eyebrow">Você usa um destes modelos?</p>
-              <ul>
-                {hubConfig.minuteCompatibleFamilies.map((family) => <li key={family}>{family}</li>)}
-              </ul>
-              <p className="phone-path__app-label">Seu aplicativo é:</p>
-              <h4>Minute</h4>
-              <p className="phone-path__copy">Use o Minute para realizar as tarefas compatíveis com esses aparelhos.</p>
+              <div className="phone-path__top">
+                <p className="phone-path__eyebrow">Você usa um destes modelos?</p>
+                <ul>
+                  {hubConfig.minuteCompatibleFamilies.map((family) => <li key={family}>{family}</li>)}
+                </ul>
+                <p className="phone-path__app-label">Seu aplicativo é:</p>
+                <h4>Minute</h4>
+                <p className="phone-path__copy">Use o Minute para realizar as tarefas compatíveis com esses aparelhos.</p>
+              </div>
               <div className="phone-path__actions">
                 <HubAction href={hubConfig.minuteAndroidLink} label="Baixar Minute no Android" variant="minute" onUnavailable={onLinkUnavailable} />
                 <HubAction href={hubConfig.minuteIosLink} label="Baixar Minute no iPhone" variant="minute" onUnavailable={onLinkUnavailable} />
               </div>
               <details className="compatibility-list">
                 <summary>Ver lista completa de modelos compatíveis</summary>
-                <p>A lista detalhada de modelos será adicionada aqui.</p>
+                <div className="compatibility-list__content compatibility-list__content--minute">
+                  <div className="compatibility-list__brands">
+                    {minuteCompatibleModels.map(({ manufacturer, models }) => (
+                      <section key={manufacturer}>
+                        <h5>{manufacturer}</h5>
+                        <ul>{models.map((model) => <li key={model}><Check size={12} aria-hidden="true" />{model}</li>)}</ul>
+                      </section>
+                    ))}
+                  </div>
+                  <p className="compatibility-list__notice"><strong>Não compatíveis:</strong> iPhone 16e e iPhone 17e.</p>
+                </div>
               </details>
             </article>
 
             <article className="phone-path phone-path--capture hub-reveal hub-reveal--capture">
-              <p className="phone-path__eyebrow">Seu celular não usa o Minute?</p>
-              <p className="phone-path__copy">Então seu próximo caminho é o Hub Capture.</p>
-              <p className="phone-path__app-label">Seu aplicativo é:</p>
-              <h4>Hub Capture</h4>
+              <div className="phone-path__top">
+                <p className="phone-path__eyebrow">Seu celular não está nesta lista?</p>
+                <p className="phone-path__copy">Então seu próximo caminho é o Hub Capture.</p>
+                <p className="phone-path__app-label">Seu aplicativo é:</p>
+                <h4>Hub Capture</h4>
+              </div>
               <div className="phone-path__actions">
                 <HubAction href={hubConfig.hubCaptureAndroidLink} label="Baixar Hub Capture no Android" variant="capture" onUnavailable={onLinkUnavailable} />
                 <HubAction href={hubConfig.hubCaptureIosLink} label="Baixar Hub Capture no iPhone" variant="capture" onUnavailable={onLinkUnavailable} />
               </div>
               <details className="compatibility-list">
-                <summary>Ver celulares compatíveis</summary>
-                <p>Confirme a compatibilidade do seu modelo antes de seguir. A lista será preenchida aqui.</p>
+                <summary>Ver modelos já testados</summary>
+                <div className="compatibility-list__content compatibility-list__content--capture">
+                  <h5>Modelos que já testamos</h5>
+                  <p className="compatibility-list__intro">Além dos aparelhos já compatíveis com o Minute, estes modelos também foram testados por nós e funcionaram com o Hub Capture.</p>
+                  <div className="compatibility-list__brands compatibility-list__brands--capture">
+                    {hubCaptureAcceptedDevices.map(({ manufacturer, models }) => (
+                      <section key={manufacturer}>
+                        <h6>{manufacturer}</h6>
+                        <ul>{models.map((model) => <li key={model}><Check size={12} aria-hidden="true" />{model}</li>)}</ul>
+                      </section>
+                    ))}
+                  </div>
+                  <aside className="compatibility-list__rejected">
+                    <strong>Não funcionou em nossos testes</strong>
+                    {hubCaptureRejectedDevices.map(({ manufacturer, models }) => (
+                      <div key={manufacturer}>
+                        <span>{manufacturer}</span>
+                        <ul>{models.map((model) => <li key={model}><X size={12} aria-hidden="true" />{model}</li>)}</ul>
+                      </div>
+                    ))}
+                  </aside>
+                  <aside className="compatibility-list__testing-notice">
+                    <strong>Ainda em testes</strong>
+                    <p>O Hub Capture continua sendo testado em novos aparelhos. A lista acima mostra modelos que já testamos e sabemos que funcionam. Outros celulares também podem ser compatíveis. Se o seu aparelho não estiver na lista, vale instalar o aplicativo e testar.</p>
+                  </aside>
+                </div>
               </details>
             </article>
           </div>
