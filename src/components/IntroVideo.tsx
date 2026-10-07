@@ -33,11 +33,12 @@ export function IntroVideo({ video, onUnavailable }: { video: IntroVideoData; on
 
   const handlePlay = () => source ? setIsPlaying(true) : onUnavailable()
   const hasLocalPreview = video.provider === 'local' && Boolean(source)
+  const previewSource = source ? `${source}#t=1.5` : ''
 
   return (
     <button className="intro-video" type="button" onClick={handlePlay} aria-label={`Assistir ${video.title}`}>
       {hasLocalPreview
-        ? <video className="intro-video__preview" src={source} muted playsInline preload="auto" aria-hidden="true" onLoadedMetadata={({ currentTarget }) => { currentTarget.currentTime = 0.1 }} />
+        ? <video className="intro-video__preview" src={previewSource} muted playsInline preload="auto" aria-hidden="true" onLoadedMetadata={({ currentTarget }) => { currentTarget.currentTime = Math.min(1.5, Math.max(0.1, currentTarget.duration * 0.15)) }} />
         : <img src={images[video.image]} alt="" />}
       <span className="intro-video__label">{video.label}</span>
       <span className="intro-video__play"><Play size={24} fill="currentColor" /></span>
