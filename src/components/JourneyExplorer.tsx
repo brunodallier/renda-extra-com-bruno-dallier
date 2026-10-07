@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 import { motionTokens } from '../lib/motion'
@@ -21,6 +21,7 @@ export function JourneyExplorer({ steps }: { steps: JourneyStep[] }) {
 
   return (
     <div className="journey-explorer">
+      <div className="journey-explorer__left">
       <div className="journey-explorer__list" role="tablist" aria-label="Etapas para começar">
         {steps.map((step, index) => {
           const isActive = activeIndex === index
@@ -34,6 +35,11 @@ export function JourneyExplorer({ steps }: { steps: JourneyStep[] }) {
             </div>
           )
         })}
+      </div>
+        <div className="journey-explorer__cta">
+          <a href="https://ai.hub.xyz/r/SITEBR" target="_blank" rel="noopener noreferrer">Quero começar agora <ArrowRight size={19} /></a>
+          <p>Cadastro gratuito na Hub.</p>
+        </div>
       </div>
       <AnimatePresence mode="wait"><JourneyStage key={activeStep.number} step={activeStep} /></AnimatePresence>
     </div>

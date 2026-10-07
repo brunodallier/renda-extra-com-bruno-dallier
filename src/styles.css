@@ -62,6 +62,8 @@ h3 { line-height: 1; }
 .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 12px 17px; border: 1px solid var(--ink); border-radius: 3px; font-size: 13px; font-weight: 700; text-transform: uppercase; transition: transform 140ms ease, background 140ms ease, color 140ms ease; }
 .button--signal { color: var(--ink); background: var(--signal); }
 .button--signal:hover { color: var(--white); background: var(--ink); transform: translate(2px, -2px); }
+.button--secondary { color: var(--ink); background: transparent; }
+.button--secondary:hover { color: var(--white); background: var(--ink); transform: translate(2px, -2px); }
 .button svg, .hub-action svg { transition: transform 140ms ease; }
 .button:hover svg, .hub-action:hover svg { transform: translateX(3px); }
 .button:active, .nav-cta:active, .hub-action:active, .icon-button:active { transform: scale(0.97); }
@@ -388,6 +390,7 @@ tbody td small { display: block; margin-top: 4px; color: var(--signal-dark); fon
 .campaign-hero--video h1 { max-width: 650px; margin-bottom: 27px; font-size: 76px; line-height: 0.94; }
 .campaign-hero--video h1 > span, .campaign-hero--video h1 > em { display: block; }
 .campaign-hero--video .campaign-hero__copy > span { max-width: 450px; }
+.hero-registration-cta { order: -1; }
 .hero-indicators { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
 .hero-indicator { min-height: 74px; padding: 14px 20px 12px 0; }
 .hero-indicator + .hero-indicator { padding-left: 20px; border-left: 1px solid var(--line); }
@@ -406,6 +409,7 @@ video.intro-video--embedded { object-fit: cover; }
 
 .journey-section { background: var(--white); }
 .journey-explorer { display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 70px; margin-top: 64px; }
+.journey-explorer__left { min-width: 0; }
 .journey-explorer__list { border-top: 1px solid var(--ink); }
 .journey-explorer__item { border-bottom: 1px solid var(--ink); }
 .journey-explorer__item > button { position: relative; display: grid; width: 100%; grid-template-columns: 43px 1fr; align-items: center; gap: 10px; padding: 17px 0; color: var(--ink); background: transparent; border: 0; text-align: left; transition: color 160ms ease, padding-left 160ms ease; }
@@ -420,6 +424,13 @@ video.intro-video--embedded { object-fit: cover; }
 .journey-explorer__stage > div { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 28px; margin-top: 31px; border-top: 1px solid var(--ink); font-size: 12px; font-weight: 700; }
 .journey-explorer__stage > div svg { flex: none; }
 .journey-explorer__mobile-stage { display: none; }
+.journey-explorer__cta { margin-top: 30px; }
+.journey-explorer__cta > a { display: inline-flex; min-width: 300px; min-height: 56px; align-items: center; justify-content: space-between; gap: 34px; padding: 13px 18px; color: var(--ink); background: var(--signal); border: 1px solid var(--ink); border-radius: 3px; font-size: 13px; font-weight: 700; text-decoration: none; text-transform: uppercase; transition: color 150ms ease, background 150ms ease; }
+.journey-explorer__cta > a svg { transition: transform 150ms ease; }
+.journey-explorer__cta > a:hover { color: var(--white); background: var(--ink); }
+.journey-explorer__cta > a:hover svg { transform: translateX(5px); }
+.journey-explorer__cta > a:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.journey-explorer__cta > p { margin: 9px 0 0; color: var(--muted); font-family: var(--mono); font-size: 10px; text-transform: uppercase; }
 
 .tasks-section { background: var(--paper-deep); }
 .tasks-heading { display: grid; grid-template-columns: 29% 1fr auto; align-items: end; gap: 20px; padding-bottom: 39px; border-bottom: 1px solid var(--ink); }
@@ -670,6 +681,7 @@ video.intro-video--embedded { object-fit: cover; }
   h1 { font-size: 57px; }
   h2 { font-size: 40px; }
   .campaign-hero__actions { align-items: flex-start; flex-direction: column; gap: 17px; }
+  .hero-registration-cta { order: 0; }
   .process-step h3 { font-size: 38px; }
   .process-step p { font-size: 11px; }
   .detail-fact-strip { grid-template-columns: 1fr; }
@@ -717,6 +729,8 @@ video.intro-video--embedded { object-fit: cover; }
   .journey-explorer__mobile-stage > p:first-child { margin-bottom: 26px; }
   .journey-explorer__mobile-stage h3 { font-size: 32px; }
   .journey-explorer__mobile-stage > div { padding-top: 17px; margin-top: 21px; }
+  .journey-explorer__cta { margin-top: 27px; }
+  .journey-explorer__cta > a { width: 100%; min-width: 0; }
   .tasks-heading { grid-template-columns: 1fr; gap: 12px; padding-bottom: 26px; }
   .tasks-heading > p { margin: 0; }
   .tasks-heading h2 { font-size: 53px; }
