@@ -38,7 +38,7 @@ export function Home() {
               <motion.h1 id="hero-title" variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}><span>Faça uma</span><span>renda extra</span><span>com</span><em>treinamento<br />de IA.</em></motion.h1>
               <motion.span variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}>Aprenda a encontrar oportunidades, fazer tarefas e buscar uma renda extra com IA.</motion.span>
               <motion.div className="campaign-hero__actions" variants={revealItem} transition={{ duration: motionTokens.duration.reveal, ease: motionTokens.easing.enter }}>
-                <a className="button button--signal hero-registration-cta" href="https://ai.hub.xyz/r/SITEBR" target="_blank" rel="noopener noreferrer">Criar minha conta na Hub <ArrowRight size={18} /></a>
+                <a className="button button--signal hero-registration-cta" href="https://ai.hub.xyz/r/SITEBR" target="_blank" rel="noopener noreferrer">Começar a fazer renda extra <ArrowRight size={18} /></a>
                 <a className="button button--secondary" href="#plataformas">Ver oportunidades <ArrowRight size={18} /></a>
                 <a className="text-link" href="#como-funciona">Como funciona <ArrowDown size={16} /></a>
               </motion.div>
@@ -52,6 +52,7 @@ export function Home() {
             <motion.div className="hero-indicator" variants={revealItem}><strong>PIX</strong><span>saque em reais</span></motion.div>
             <motion.div className="hero-indicator" variants={revealItem}><strong>COMECE DO ZERO</strong><span>não exige experiência prévia</span></motion.div>
           </motion.div>
+          <p className="hero-compensation-note">Valores podem variar conforme tarefa, campanha e condições da plataforma.</p>
         </div>
       </section>
 

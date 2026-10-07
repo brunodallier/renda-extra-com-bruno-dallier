@@ -6,6 +6,8 @@ import { Header } from './components/Header'
 import { motionTokens } from './lib/motion'
 import { Home } from './pages/Home'
 import { PlatformDetail } from './pages/PlatformDetail'
+import { Privacy } from './pages/Privacy'
+import { Terms } from './pages/Terms'
 
 function ScrollManager() {
   const location = useLocation()
@@ -23,6 +25,8 @@ function RoutedContent() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/plataformas/:slug" element={<PlatformDetail />} />
+          <Route path="/privacidade" element={<Privacy />} />
+          <Route path="/termos" element={<Terms />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </motion.div>
