@@ -1,5 +1,5 @@
 import type { IntroVideo } from '../types/content'
-import heroIntroVideo from '../assets/hero-intro.mp4'
+import heroIntroVideo from '../assets/hero-intro-web.mp4'
 
 export const introVideo: IntroVideo = {
   title: 'Entenda como funciona a renda extra com IA',
