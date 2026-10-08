@@ -193,9 +193,9 @@ h3 { line-height: 1; }
 .hub-app-section .phone-path--minute ul { gap: 7px; margin-bottom: 17px; font-size: 13px; line-height: 1.35; }
 .hub-app-section .phone-path li::before { display: inline-block; width: 11px; margin-right: 6px; color: var(--signal-dark); content: '—'; }
 .hub-app-section .phone-path__app-label { margin: 17px 0 4px; color: var(--ink); font-size: 10px; font-weight: 700; }
-.hub-app-section .phone-path--capture .phone-path__eyebrow { margin-bottom: 14px; color: var(--signal); font-size: 12px; font-weight: 700; line-height: 1.3; }
+.hub-app-section .phone-path--capture .phone-path__eyebrow { max-width: 285px; margin-bottom: 18px; color: var(--signal); font-family: var(--display); font-size: 22px; font-weight: 400; line-height: 0.96; letter-spacing: 0; }
 .hub-app-section .phone-path--capture .phone-path__copy { max-width: 315px; margin-bottom: 0; color: #f4f2ed; font-size: 15px; font-weight: 600; line-height: 1.4; }
-.hub-app-section .phone-path--capture .phone-path__app-label { margin-top: 27px; color: #f4f2ed; font-size: 11px; font-weight: 700; }
+.hub-app-section .phone-path--capture .phone-path__app-label { margin-top: 0; color: #f4f2ed; font-size: 11px; font-weight: 700; }
 .hub-app-section .phone-path h4 { margin-bottom: 7px; font-size: 32px; }
 .hub-app-section .phone-path--capture h4 { margin-bottom: 0; color: var(--white); font-size: 34px; }
 .hub-app-section .phone-path__copy { margin-bottom: 13px; font-size: 12px; }
@@ -218,6 +218,10 @@ h3 { line-height: 1; }
 .phone-path--capture .pre-download-info__copy { max-width: 315px; color: #e9e5dd; }
 .pre-download-info__registration-link { display: inline-flex; align-items: center; gap: 6px; padding-bottom: 3px; margin-top: 9px; border-bottom: 1px solid var(--signal); color: var(--signal); font-size: 10px; font-weight: 700; text-transform: uppercase; }
 .pre-download-info__registration-link svg { transition: transform 140ms ease; }
+@media (min-width: 981px) {
+  /* Matches the Minute setup block so the central dividers share a baseline. */
+  .hub-app-section .phone-path--capture .phone-path__pre-download { min-block-size: 155px; }
+}
 .hub-app-section .phone-path__actions .hub-action { min-height: 37px; padding: 7px 10px; font-size: 10px; }
 .hub-app-section .phone-path__actions .hub-action:hover { transform: none; }
 .hub-app-section .phone-path__actions .hub-action svg { transition: transform 180ms ease; }

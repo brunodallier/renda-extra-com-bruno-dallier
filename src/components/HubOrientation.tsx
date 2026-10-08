@@ -170,7 +170,6 @@ export function HubOrientation({ onLinkUnavailable }: { onLinkUnavailable: (labe
             <article className="phone-path phone-path--capture hub-reveal hub-reveal--capture">
               <div className="phone-path__top">
                 <p className="phone-path__eyebrow">Seu celular não está nesta lista?</p>
-                <p className="phone-path__copy">Então seu próximo caminho é o Hub Capture.</p>
                 <p className="phone-path__app-label">Seu aplicativo é:</p>
                 <h4>Hub Capture</h4>
               </div>
